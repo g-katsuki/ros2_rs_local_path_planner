@@ -27,16 +27,20 @@ find_package(nav_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(ros_mercury_interfaces REQUIRED)
-set(NODES ros2_potential)
+find_package(ament_index_cpp REQUIRED)
+set(NODES rs_local_path_planner)
 
 add_library(${PROJECT_NAME} SHARED
   src/local_path_planner.cpp
 )
 ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs std_srvs ros2_rs_interfaces geometry_msgs
-                                          sensor_msgs nav_msgs tf2 rclcpp_components ros_mercury_interfaces)
-target_link_libraries(${PROJECT_NAME} rs_navi rs_mapping ${Boost_LIBRARIES})
+                                          sensor_msgs nav_msgs tf2 rclcpp_components ros_mercury_interfaces
+                                          ament_index_cpp)
+target_link_libraries(${PROJECT_NAME} rs_navi ${Boost_LIBRARIES})
 rclcpp_components_register_nodes(${PROJECT_NAME} "project_ryusei::ROS2LocalPathPlanner")
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+install(DIRECTORY data DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY launch DESTINATION share/${PROJECT_NAME})
 
 ament_package()
