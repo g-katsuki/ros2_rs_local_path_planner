@@ -1,0 +1,5 @@
+'resource_directory_name': 'cfg/navigation_cfg'
+'init_file_name': 'navigation.ini'
+'pose_name': '/pose'
+'locator_name': '/locator'
+way_point_distance: 0.2
